@@ -25,8 +25,9 @@ def __engine_creation__(db_type=None):
 
 def columns_to_keep():
     """Rather for aesthetics we keep the set of immutable variables names that needed to be exported to the DB"""
-    set_of_columns = {"station_id", "station_name", "physical_configuration", "latitude", "longitude", "altitude",
-                      "address", "capacity", "rental_methods", "groups", "obcn", "nearby_distance",
+
+    set_of_columns = {"last_updated", "station_id", "station_name", "physical_configuration", "latitude", "longitude",
+                      "altitude", "address", "capacity", "rental_methods", "groups", "obcn", "nearby_distance",
                       "num_bikes_available", "mechanical_bikes_available", "electric_bikes_available",
                       "num_bikes_disabled", "num_docks_available", "num_docks_disabled", "is_installed",
                       "is_renting", "is_returning", "last_reported", "is_charging_station", "status"}
@@ -44,27 +45,31 @@ def bikes_csv_reader(product_type='bikes'):
             logging.info('Hmmm! Looks like data is missing! Please check pipeline.')
         else:
             path_to_file = path + '/' + 'bikes.csv'
+            df_bikes = pd.read_csv(path_to_file)
+            # match the names in desired DB
+            df_bikes = df_bikes.rename(columns={"name" : "station_name", "lat" : "latitude", "lon" : "longitude",
+                                                "num_bikes_available_types.mechanical" : "mechanical_bikes_available",
+                                                "num_bikes_available_types.ebike" : "electric_bikes_available"},
+                                       errors="raise")
 
-    df_bikes = pd.read_csv(path_to_file)
+            # keep only those columns that we need for DB
+            df_bikes = df_bikes[columns_to_keep()]
 
-    df_bikes = df_bikes.rename(columns={"name": "station_name", "lat": "latitude", "lon": "longitude",
-                                        "num_bikes_available_types.mechanical": "mechanical_bikes_available",
-                                        "num_bikes_available_types.ebike": "electric_bikes_available"},
-                               errors="raise")
-
-    df_bikes = df_bikes[columns_to_keep()]
-
-    return df_bikes
+            return df_bikes
 
 
 def main():
 
     df_bikes_for_export = bikes_csv_reader()
 
-    df_bikes_for_export.to_sql(name="toronto_bike_stations", con=__engine_creation__('pg_bikes_data'),
-                               index=False, if_exists='append')
+    try:
+        df_bikes_for_export.to_sql(name="toronto_bike_stations", con=__engine_creation__('pg_bikes_data'),
+                                   index=False, if_exists='append')
 
-    logging.info('Success! All data imported!')
+        logging.info('Success! All data transformed and loaded!')
+    except AttributeError as e:
+        logging.info('Error: Dataframe is empty')
+        raise e
 
 
 if __name__ == "__main__":
