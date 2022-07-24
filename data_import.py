@@ -7,9 +7,6 @@ from datetime import datetime
 
 logging.basicConfig(level=logging.INFO)
 
-cwd = '/Users/madbitloman/Downloads'
-os.chdir(cwd)
-
 
 def ts_folder_creation(df, product_type='bikes'):
     mydir = os.path.join(

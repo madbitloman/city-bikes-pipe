@@ -1,0 +1,1 @@
+SELECT SUM(num_bikes_available) AS bikes_available FROM toronto_bike_stations;
