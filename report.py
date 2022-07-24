@@ -4,7 +4,9 @@ from data_export import __engine_creation__
 
 
 def get_query(q_type):
-    """Method to read all the needed *.sql files from queries folder"""
+    """Method to read all the needed *.sql files from queries folder.
+    q_type: type of the query from the test to run"""
+
     local_path = 'queries/{}.sql'.format(q_type)
     with open(local_path, 'r') as sql_f:
         query_string = sql_f.read()
