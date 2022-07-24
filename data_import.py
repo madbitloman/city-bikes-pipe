@@ -53,6 +53,7 @@ def get_status(url_status):
 
 
 def main():
+
     status_url = 'https://tor.publicbikesystem.net/ube/gbfs/v1/en/station_status'
     info_url = 'https://tor.publicbikesystem.net/ube/gbfs/v1/en/station_information'
 

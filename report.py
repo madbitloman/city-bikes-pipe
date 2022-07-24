@@ -1,31 +1,6 @@
 import pandas as pd
-import numpy as np
-import os
 import subprocess
 from data_export import __engine_creation__
-
-from datetime import datetime, timedelta
-from slack import WebClient
-import matplotlib.pyplot as plt
-from pandas.plotting import register_matplotlib_converters
-import locale as lc
-register_matplotlib_converters()
-plt.close('all')
-
-
-
-#
-# def plot_report(dt, dt2):
-#     return graph_name
-
-
-
-def highlight_col(x):
-    df = x.copy()
-    mask = (df['wow_cost'].str.replace('%', '').astype(float) < 0)
-    df.loc[mask, :] = 'background-color: #faecdc'
-    df.loc[~mask, :] = 'background-color:  #f6f7f5'
-    return df
 
 
 def get_query(q_type):
@@ -58,27 +33,22 @@ def main():
 
     avg_bikes_available = pd.read_sql(get_query('avg_bikes_available'), con=__engine_creation__('pg_bikes_data'))
 
-
     largest_stations = pd.read_sql(get_query('top_3_capacity_stations'), con=__engine_creation__('pg_bikes_data'))
     largest_stations_html = largest_stations.style.set_table_styles(styles).background_gradient().hide_index().render()
 
     small_stations = pd.read_sql(get_query('bottom_3_capacity_stations'), con=__engine_creation__('pg_bikes_data'))
     smallest_stations_html = small_stations.style.set_table_styles(styles).background_gradient().hide_index().render()
 
-
     imaginary_loc = pd.read_sql(get_query('imaginary_location'), con=__engine_creation__('pg_bikes_data'))
     imaginary_loc_html = imaginary_loc.style.set_table_styles(styles).background_gradient().hide_index().render()
 
-
     with open('config/template.html', 'r') as html:
         html_as_string = html.read()
-
-
     with open('report.html', 'w') as f:
-        f.write(html_as_string.format(available_bikes = format(int(bikes.bikes_available), ".0f"),
-                                      bikes_available_t = format(int(available_bikes_toronto.bikes_available_t), ".0f"),
-                                      avg_bikes = format(int(avg_bikes_available.avg_bikes_available), ".0f"),
-            largest_stations = largest_stations_html, small_stations=smallest_stations_html,
+        f.write(html_as_string.format(available_bikes=format(int(bikes.bikes_available), ".0f"),
+                                      bikes_available_t=format(int(available_bikes_toronto.bikes_available_t), ".0f"),
+                                      avg_bikes=format(int(avg_bikes_available.avg_bikes_available), ".0f"),
+                                      largest_stations=largest_stations_html, small_stations=smallest_stations_html,
                                       imaginary_loc=imaginary_loc_html))
 
     # Had to do this mambo jambo to generate proper PDF from HTML knitted report
