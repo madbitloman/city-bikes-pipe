@@ -7,9 +7,6 @@ from datetime import datetime
 
 logging.basicConfig(level=logging.INFO)
 
-cwd = '/Users/madbitloman/Downloads'
-os.chdir(cwd)
-
 
 def ts_folder_creation(df, product_type='bikes'):
     mydir = os.path.join(
@@ -56,6 +53,7 @@ def get_status(url_status):
 
 
 def main():
+
     status_url = 'https://tor.publicbikesystem.net/ube/gbfs/v1/en/station_status'
     info_url = 'https://tor.publicbikesystem.net/ube/gbfs/v1/en/station_information'
 

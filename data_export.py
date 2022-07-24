@@ -8,9 +8,6 @@ from sqlalchemy import create_engine
 
 logging.basicConfig(level=logging.INFO)
 
-cwd = '/Users/madbitloman/Downloads'
-os.chdir(cwd)
-
 
 def __engine_creation__(db_type=None):
     """Function to create Postgres engine based on the credentials type"""
@@ -53,19 +50,19 @@ def bikes_csv_reader(product_type='bikes'):
     df_bikes = df_bikes.rename(columns={"name": "station_name", "lat": "latitude", "lon": "longitude",
                                         "num_bikes_available_types.mechanical": "mechanical_bikes_available",
                                         "num_bikes_available_types.ebike": "electric_bikes_available"},
-                                errors="raise")
+                               errors="raise")
 
     df_bikes = df_bikes[columns_to_keep()]
 
     return df_bikes
 
+
 def main():
 
-    df_bikes_for_export =  bikes_csv_reader()
+    df_bikes_for_export = bikes_csv_reader()
 
-    df_bikes_for_export.to_sql(name="toronto_bike_stations",
-                           con=__engine_creation__('pg_bikes_data'),
-                           index=False, if_exists='append')
+    df_bikes_for_export.to_sql(name="toronto_bike_stations", con=__engine_creation__('pg_bikes_data'),
+                               index=False, if_exists='append')
 
     logging.info('Success! All data imported!')
 
