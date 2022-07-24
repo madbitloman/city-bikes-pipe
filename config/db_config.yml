@@ -1,5 +1,5 @@
 pg_bikes_data:
     host: localhost
     usr: postgres
-    pwd: azim
+    pwd: postgres
     db: bikes_data
