@@ -1,8 +1,9 @@
 ## city-bikes-pipe 
+Scripts ready for ETL to extract data from 
 
 Scripts to acces open data bikes:
-    sataions: https://tor.publicbikesystem.net/ube/gbfs/v1/en/station_status
-    stations information: https://tor.publicbikesystem.net/ube/gbfs/v1/en/station_information
+    - stations: https://tor.publicbikesystem.net/ube/gbfs/v1/en/station_status
+    - stations information: https://tor.publicbikesystem.net/ube/gbfs/v1/en/station_information
 
 
 
@@ -11,7 +12,7 @@ Scripts to acces open data bikes:
 |---------------------|------------------------------|
 | Python              | 3.7                          |
 | AWS                 | EC2 t3.medium                |
-| PostgreSQL          |  14                          |
+| PostgreSQL          | 14                           |
 | Tableau             | 10                           |
 | Airflow             | 2.0                          |
 
