@@ -1,12 +1,12 @@
-# city-bikes-pipe
-Stack used: Postgres
+## city-bikes-pipe 
+
+Scripts to acces open data bikes:
+    sataions: https://tor.publicbikesystem.net/ube/gbfs/v1/en/station_status
+    stations information: https://tor.publicbikesystem.net/ube/gbfs/v1/en/station_information
 
 
 
-## Stack Used
-
-Apache Airflow is tested with:
-
+## Stack Used 
 |                     | Main version (dev)           |
 |---------------------|------------------------------|
 | Python              | 3.7                          |
@@ -15,7 +15,7 @@ Apache Airflow is tested with:
 | Tableau             | 10                           |
 | Airflow             | 2.0                          |
 
-
+Apache Airlfow was installed on EC2 instance and can be acessed on ec2-44-195-93-188.compute-1.amazonaws.com
 ![Screen Shot 2022-07-24 at 9 20 24 PM](https://user-images.githubusercontent.com/9925727/180692308-5033d44b-c454-405e-b694-46d2c37e8b70.png)
 
 What to do next? 
