@@ -1,11 +1,21 @@
 # city-bikes-pipe
+Stack used: Postgres
 
 
 
+## Stack Used
+
+Apache Airflow is tested with:
+
+|                     | Main version (dev)           |
+|---------------------|------------------------------|
+| Python              | 3.7                          |
+| AWS                 | EC2 t3.medium                |
+| PostgreSQL          |  14                          |
+| Tableau             | 10                           |
+| Airflow             | 2.0                          |
 
 
-
-Apache Airflow 2.0 Version is running on EC2 AWS t3.medium instance 
 ![Screen Shot 2022-07-24 at 9 20 24 PM](https://user-images.githubusercontent.com/9925727/180692308-5033d44b-c454-405e-b694-46d2c37e8b70.png)
 
 What to do next? 
